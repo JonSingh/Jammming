@@ -2,19 +2,15 @@ import React from 'react'
 import './Track.css'
 
 class Track extends React.Component {
-    constructor(props){
-        super(props)
-
-    }
 
     render() {
         return(
             <div className='Track'>
-                <p className='Track-information'>
-                    Track Title
-                    <br/>
-                    <h3>Artist | Album</h3>                    
-                </p>
+                <div className="Track-information">
+                    <h3>Test Track Name</h3>                
+                    <p>Test Artist | Test Album</p>
+                </div>
+                <a class="Track-button">+</a>
             </div>
         )
     }

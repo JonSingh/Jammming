@@ -24,8 +24,8 @@
   .SearchBar a {
     cursor: pointer;
     width: 8.11rem;
-    padding: .77rem 0;
-    border-radius: 54px;
+    padding: .77rem;
+    border-radius: 60px;
     background-color: #010c3f;
     text-align: center;
     font-size: .833rem;
