@@ -4,15 +4,20 @@ import Track from '../Track/Track'
 
 class TrackList extends React.Component {
     render() {
-        const isSearchResult = this.props.isSearchResult
-        const isPlaylist = this.props.isPlaylist
         let tracklist
-
-        if(isSearchResult || isPlaylist) {
+        if(this.props.isPlaylist){
             tracklist = this.props.tracks.map(track => {
-                return <Track track={track} key={track.id} isPlaylist={isPlaylist} isSearchResult={isSearchResult} addTrack={this.props.addTrack}/>
+                return <Track track={track} key={track.id} isPlaylist={this.props.isPlaylist} removeTrack={this.props.removeTrack}/>
             })
         }
+        else {
+            tracklist = this.props.tracks.map(track => {
+                return <Track track={track} key={track.id} isPlaylist={this.props.isPlaylist} addTrack={this.props.addTrack}/>
+            })
+        }
+
+        
+        
         return(
             <div className="TrackList">
                 {tracklist}

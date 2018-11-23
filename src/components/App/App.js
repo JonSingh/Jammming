@@ -8,32 +8,37 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchResults: [{name:"name",album:"album",artist:"artist",id:0},{name:"name 2",album:"album 2",artist:"artist 2",id:1}],
-      playlist: [{name:"name 3",album:"album 3",artist:"artist 3",id:3}]
-  }
+      searchResults: [{name:"Some Song Name",album:"The Reverent Jorfy (Live)",artist:"Andy Gordon",id:"spotify:track:2mlNUVIHh7zm66aMx3U2Nv"}],
+      playlist: [{name:"A different song name",album:"The Reverent Porfy (Dead)",artist:"Gandy Ordon",id:"spotify:track:2kjfs89d7fsidfuooisu"}],
+      playlistName: "Taco's Slow Chili"
+    }
     this.addTrack = this.addTrack.bind(this)
-    this.removeTrack = this.removeTrack.bind(this)
+
 }
 
   addTrack(track) {
-    this.setState({playlist: this.state.playlist.push(track)})
+    let newPlaylist = this.state.playlist
+    if (newPlaylist.find(savedTrack => savedTrack.id === track.id)) {return}
+    newPlaylist.push(track)
+    this.setState({playlist: newPlaylist})
   }
 
-  removeTrack(track) {
-    this.setState({playlist: this.state.playlist.filter(function(value, index, arr){
-      return (value != track)
-    })})
+  removeTrack(track){
+    let newPlaylist = this.state.playlist
+    newPlaylist = newPlaylist.filter(savedTrack => savedTrack === track.id)
+    this.setState({playlist: newPlaylist})
   }
+
 
   render() {
     return (
       <div>
-        <h1>Ja<span class="highlight">mmm</span>ing</h1>
+        <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
           <SearchBar/>
           <div className="App-playlist">
             <SearchResults tracks={this.state.searchResults} addTrack={this.addTrack}/>
-            <Playlist playlist={this.state.playlist} removeTrack={this.removeTrack}/>
+            <Playlist playlist={this.state.playlist} playlistName={this.state.playlistName} removeTrack={this.removeTrack}/>
           </div>
         </div>
       </div>
