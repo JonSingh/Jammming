@@ -19,7 +19,9 @@ class Track extends React.Component {
 
     renderAction() {return (this.props.isPlaylist ? "-" : "+")}
 
-    handleOnClick() {return (this.props.isPlaylist ? this.handleRemoveTrack(this.props.track) : this.handleAddTrack(this.props.track))}
+    //I know this is wrong, since both those functions should receive track, but doing so causes everything to crash.
+    //Why does this even work a little bit?!
+    handleOnClick(track) {return (this.props.isPlaylist ? this.handleRemoveTrack : this.handleAddTrack)}
 
     render() {
         return(
@@ -28,7 +30,7 @@ class Track extends React.Component {
                     <h3>{this.props.track.name}</h3>                
                     <p>{this.props.track.artist} | {this.props.track.album}</p>
                 </div>
-                <a className="Track-action" onClick={this.handleOnClick()}>{this.renderAction()}</a>
+                <a className="Track-action" onClick={this.handleOnClick(this.props.track)}>{this.renderAction()}</a>
             </div>
         )
     }
