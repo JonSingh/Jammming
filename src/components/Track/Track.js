@@ -19,7 +19,7 @@ class Track extends React.Component {
 
     renderAction() {return (this.props.isPlaylist ? "-" : "+")}
 
-    handleOnClick() {return (this.props.isPlaylist ? this.handleRemoveTrack : this.handleAddTrack)}
+    handleOnClick() {return (this.props.isPlaylist ? this.handleRemoveTrack(this.props.track) : this.handleAddTrack(this.props.track))}
 
     render() {
         return(
@@ -28,7 +28,7 @@ class Track extends React.Component {
                     <h3>{this.props.track.name}</h3>                
                     <p>{this.props.track.artist} | {this.props.track.album}</p>
                 </div>
-                <a className="Track-action" onClick={this.handleOnClick}>{this.renderAction()}</a>
+                <a className="Track-action" onClick={this.handleOnClick()}>{this.renderAction()}</a>
             </div>
         )
     }
