@@ -13,6 +13,7 @@ class App extends Component {
       playlistName: "Taco's Slow Chili"
     }
     this.addTrack = this.addTrack.bind(this)
+    this.removeTrack = this.removeTrack.bind(this)
 
 }
 
@@ -20,12 +21,14 @@ class App extends Component {
     let newPlaylist = this.state.playlist
     if (newPlaylist.find(savedTrack => savedTrack.id === track.id)) {return}
     newPlaylist.push(track)
+    console.log(newPlaylist)
     this.setState({playlist: newPlaylist})
   }
 
   removeTrack(track){
     let newPlaylist = this.state.playlist
     newPlaylist = newPlaylist.filter(savedTrack => savedTrack === track.id)
+    console.log(newPlaylist)
     this.setState({playlist: newPlaylist})
   }
 
