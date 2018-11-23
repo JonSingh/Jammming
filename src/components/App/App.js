@@ -22,7 +22,6 @@ class App extends Component {
     let newPlaylist = this.state.playlist
     if (newPlaylist.find(savedTrack => savedTrack.id === track.id)) {return}
     newPlaylist.push(track)
-    console.log(newPlaylist)
     this.setState({playlist: newPlaylist})
   }
 
@@ -34,7 +33,7 @@ class App extends Component {
   }
 
   updatePlaylistName(name){
-    this.setState({playlist:name})
+    this.setState({playlistName:name})
   }
 
 
