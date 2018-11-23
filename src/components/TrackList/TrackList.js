@@ -4,17 +4,22 @@ import Track from '../Track/Track'
 
 class TrackList extends React.Component {
     render() {
-        return(
-            <div class="TrackList">
-            {
-                this.props.tracks.map(track => {
-                    return <Track track={track} key={track.id} />
-          })
+        const isSearchResult = this.props.isSearchResult
+        const isPlaylist = this.props.isPlaylist
+        let tracklist
+
+        if(isSearchResult || isPlaylist) {
+            tracklist = this.props.tracks.map(track => {
+                return <Track track={track} key={track.id} isPlaylist={isPlaylist} isSearchResult={isSearchResult} addTrack={this.props.addTrack}/>
+            })
         }
-             
+        return(
+            <div className="TrackList">
+                {tracklist}
             </div>
         )
     }
 }
+            
 
 export default TrackList
