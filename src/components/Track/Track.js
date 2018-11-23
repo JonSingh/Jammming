@@ -6,22 +6,19 @@ class Track extends React.Component {
         super(props)
         this.handleAddTrack = this.handleAddTrack.bind(this)
         this.handleRemoveTrack = this.handleRemoveTrack.bind(this)
-        this.handleOnClick = this.handleOnClick.bind(this)
     }
 
-    handleAddTrack(track) {
-        this.props.addTrack(track)
+    handleAddTrack() {
+        this.props.addTrack(this.props.track)
     }
 
-    handleRemoveTrack(track) {
-        this.props.removeTrack(track)
+    handleRemoveTrack() {
+        this.props.removeTrack(this.props.track)
     }
 
-    renderAction() {return (this.props.isPlaylist ? "-" : "+")}
-
-    //I know this is wrong, since both those functions should receive track, but doing so causes everything to crash.
-    //Why does this even work a little bit?!
-    handleOnClick(track) {return (this.props.isPlaylist ? this.handleRemoveTrack : this.handleAddTrack)}
+    renderAction() {
+        return (this.props.isPlaylist ? 
+            <a className="Track-action" onClick={this.handleRemoveTrack}>-</a> : <a className="Track-action" onClick={this.handleAddTrack}>+</a>)}
 
     render() {
         return(
@@ -30,7 +27,7 @@ class Track extends React.Component {
                     <h3>{this.props.track.name}</h3>                
                     <p>{this.props.track.artist} | {this.props.track.album}</p>
                 </div>
-                <a className="Track-action" onClick={this.handleOnClick(this.props.track)}>{this.renderAction()}</a>
+                {this.renderAction()}
             </div>
         )
     }
