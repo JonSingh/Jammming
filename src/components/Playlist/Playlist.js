@@ -4,10 +4,21 @@ import TrackList from '../TrackList/TrackList'
 
 class Playlist extends React.Component {
 
+    constructor(props){
+        super(props)
+
+        this.handleOnChange = this.handleOnChange.bind(this)
+    }
+
+    handleOnChange(e){
+        this.props.onNameUpdate(e.target.value)
+
+    }
+
     render() {
         return(
             <div className="Playlist">
-                <input placeholder="New Playlist" />
+                <input placeholder="New Playlist" value={this.props.playlistName} onChange={this.handleOnChange} />
                 <TrackList tracks={this.props.playlist} isPlaylist={true} removeTrack={this.props.removeTrack}/>
                 <a className="Playlist-save">SAVE TO SPOTIFY</a>
             </div>

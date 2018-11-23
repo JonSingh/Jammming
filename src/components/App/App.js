@@ -10,10 +10,11 @@ class App extends Component {
     this.state = {
       searchResults: [{name:"Some Song Name",album:"The Reverent Jorfy (Live)",artist:"Andy Gordon",id:"spotify:track:2mlNUVIHh7zm66aMx3U2Nv"}],
       playlist: [{name:"A different song name",album:"The Reverent Porfy (Dead)",artist:"Gandy Ordon",id:"spotify:track:2kjfs89d7fsidfuooisu"}],
-      playlistName: "Taco's Slow Chili"
+      playlistName: ""
     }
     this.addTrack = this.addTrack.bind(this)
     this.removeTrack = this.removeTrack.bind(this)
+    this.updatePlaylistName = this.updatePlaylistName.bind(this)
 
 }
 
@@ -32,6 +33,10 @@ class App extends Component {
     this.setState({playlist: newPlaylist})
   }
 
+  updatePlaylistName(name){
+    this.setState({playlist:name})
+  }
+
 
   render() {
     return (
@@ -41,7 +46,7 @@ class App extends Component {
           <SearchBar/>
           <div className="App-playlist">
             <SearchResults tracks={this.state.searchResults} addTrack={this.addTrack}/>
-            <Playlist playlist={this.state.playlist} playlistName={this.state.playlistName} removeTrack={this.removeTrack}/>
+            <Playlist playlist={this.state.playlist} playlistName={this.state.playlistName} removeTrack={this.removeTrack} onNameUpdate={this.updatePlaylistName}/>
           </div>
         </div>
       </div>
