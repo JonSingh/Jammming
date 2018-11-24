@@ -3,18 +3,21 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar'
 import SearchResults from '../SearchResults/SearchResults'
 import Playlist from '../Playlist/Playlist'
+import Spotify from '../../util/Spotify'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchResults: [{name:"Some Song Name",album:"The Reverent Jorfy (Live)",artist:"Andy Gordon",id:"spotify:track:2mlNUVIHh7zm66aMx3U2Nv"}],
-      playlist: [{name:"A different song name",album:"The Reverent Porfy (Dead)",artist:"Gandy Ordon",id:"spotify:track:2kjfs89d7fsidfuooisu"}],
-      playlistName: ""
+      searchResults: [],
+      playlist: [],
+      playlistName: "",
+      accessToken: ""
     }
     this.addTrack = this.addTrack.bind(this)
     this.removeTrack = this.removeTrack.bind(this)
     this.updatePlaylistName = this.updatePlaylistName.bind(this)
+    this.getAccessToken = this.getAccessToken.bind(this)
 
 }
 
@@ -26,9 +29,15 @@ class App extends Component {
   }
 
   removeTrack(track){
-    let newPlaylist = this.state.playlist
-    newPlaylist = newPlaylist.filter(savedTrack => savedTrack === track.id)
-    console.log(newPlaylist)
+    //debugger
+    console.log("Playlist before filter: "+ this.state.playlist[0].name)
+    let newPlaylist = this.state.playlist.filter(savedTrack => {
+      console.log(savedTrack.id)
+      console.log(track.id)
+      console.log(savedTrack.id === track.id)
+      return savedTrack.id === track.id
+    })
+    console.log("New playlist after filter: "+ newPlaylist[0].name)
     this.setState({playlist: newPlaylist})
   }
 
@@ -36,13 +45,16 @@ class App extends Component {
     this.setState({playlistName:name})
   }
 
+  getAccessToken(){
+    this.setState({accessToken: Spotify.getAccessToken()})
+  }
 
   render() {
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar/>
+          <SearchBar getToken={this.getAccessToken} token={this.state.accessToken} />
           <div className="App-playlist">
             <SearchResults tracks={this.state.searchResults} addTrack={this.addTrack}/>
             <Playlist playlist={this.state.playlist} playlistName={this.state.playlistName} removeTrack={this.removeTrack} onNameUpdate={this.updatePlaylistName}/>

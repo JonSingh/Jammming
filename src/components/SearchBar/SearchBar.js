@@ -2,6 +2,19 @@ import React from 'react'
 import './SearchBar.css'
 
 class SearchBar extends React.Component {
+    constructor(props){
+        super(props)
+        this.handleOnClick = this.handleOnClick.bind(this)
+    }
+
+    handleOnClick(){
+        if(this.props.token) {
+            console.log("I'm trying to search!")
+        }
+        else{
+            this.props.getToken()
+        }
+    }
 
     render() {
         return(
@@ -10,7 +23,7 @@ class SearchBar extends React.Component {
                     <input placeholder="Search by artist, title or album" />
                 </div>
                 <div className='SearchBar-submit'>
-                    <a>SEARCH</a>
+                    <a onClick={this.handleOnClick}>SEARCH</a>
                 </div>
             </div>
         )
