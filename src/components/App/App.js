@@ -12,12 +12,15 @@ class App extends Component {
       searchResults: [],
       playlist: [],
       playlistName: "",
-      accessToken: ""
+      accessToken: "",
+      searchTerm:""
     }
     this.addTrack = this.addTrack.bind(this)
     this.removeTrack = this.removeTrack.bind(this)
     this.updatePlaylistName = this.updatePlaylistName.bind(this)
     this.getAccessToken = this.getAccessToken.bind(this)
+    this.getSearchResults = this.getSearchResults.bind(this)
+    this.updateSearchTerm = this.updateSearchTerm.bind(this)
 
 }
 
@@ -27,17 +30,11 @@ class App extends Component {
     newPlaylist.push(track)
     this.setState({playlist: newPlaylist})
   }
-
   removeTrack(track){
-    //debugger
-    console.log("Playlist before filter: "+ this.state.playlist[0].name)
-    let newPlaylist = this.state.playlist.filter(savedTrack => {
-      console.log(savedTrack.id)
-      console.log(track.id)
-      console.log(savedTrack.id === track.id)
-      return savedTrack.id === track.id
-    })
-    console.log("New playlist after filter: "+ newPlaylist[0].name)
+    let newPlaylist = []
+    newPlaylist = this.state.playlist.filter(savedTrack => {
+      return savedTrack.id !== track.id
+      })    
     this.setState({playlist: newPlaylist})
   }
 
@@ -45,8 +42,21 @@ class App extends Component {
     this.setState({playlistName:name})
   }
 
+  updateSearchTerm(term){
+    this.setState({searchTerm: term})
+  }
+
   getAccessToken(){
     this.setState({accessToken: Spotify.getAccessToken()})
+  }
+
+  getSearchResults(term){
+    Spotify.search(term, this.state.accessToken).then(tracks => {
+      this.setState({searchResults: tracks})
+    })
+    
+
+    //debugger
   }
 
   render() {
@@ -54,7 +64,7 @@ class App extends Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar getToken={this.getAccessToken} token={this.state.accessToken} />
+          <SearchBar getToken={this.getAccessToken} token={this.state.accessToken} getSearchResults={this.getSearchResults} searchTerm={this.state.searchTerm} updateSearchTerm={this.updateSearchTerm} />
           <div className="App-playlist">
             <SearchResults tracks={this.state.searchResults} addTrack={this.addTrack}/>
             <Playlist playlist={this.state.playlist} playlistName={this.state.playlistName} removeTrack={this.removeTrack} onNameUpdate={this.updatePlaylistName}/>

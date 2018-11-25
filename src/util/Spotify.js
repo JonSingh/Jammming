@@ -4,7 +4,8 @@ const redirectURI = "http://localhost:3000"
 
 const Spotify ={
     search(term, token) {
-        return fetch(`https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/search?q=name:${term}&type=album,artist,track&limit=5`, {
+        console.log()
+        return fetch(`https://api.spotify.com/v1/search?q=name:${term}&type=track&limit=5`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
