@@ -8,6 +8,7 @@ class Playlist extends React.Component {
         super(props)
 
         this.handleOnChange = this.handleOnChange.bind(this)
+        this.handleOnClick = this.handleOnClick.bind(this)
     }
 
     handleOnChange(e){
@@ -15,12 +16,16 @@ class Playlist extends React.Component {
 
     }
 
+    handleOnClick(){
+        this.props.savePlaylist()
+    }
+
     render() {
         return(
             <div className="Playlist">
                 <input placeholder="New Playlist" value={this.props.playlistName} onChange={this.handleOnChange} />
                 <TrackList tracks={this.props.playlist} isPlaylist={true} removeTrack={this.props.removeTrack}/>
-                <a className="Playlist-save">SAVE TO SPOTIFY</a>
+                <a className="Playlist-save" onClick={this.handleOnClick}>SAVE TO SPOTIFY</a>
             </div>
         )
     }

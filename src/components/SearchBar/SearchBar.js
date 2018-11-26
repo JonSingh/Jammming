@@ -6,6 +6,7 @@ class SearchBar extends React.Component {
         super(props)
         this.handleOnClick = this.handleOnClick.bind(this)
         this.handleOnChange = this.handleOnChange.bind(this)
+        this.renderButton = this.renderButton.bind(this)
     }
 
     handleOnClick(){
@@ -21,6 +22,15 @@ class SearchBar extends React.Component {
         this.props.updateSearchTerm(e.target.value)
     }
 
+    renderButton(){
+        if(this.props.token){
+            return <a onClick={this.handleOnClick}>SEARCH</a>
+        }
+        else{
+            return <a onClick={this.handleOnClick}>LOG IN TO SPOTIFY</a>
+        }
+    }
+
     render() {
         return(
             <div className='SearchBar'>
@@ -28,7 +38,7 @@ class SearchBar extends React.Component {
                     <input onChange={this.handleOnChange} placeholder="Search by artist, title or album" />
                 </div>
                 <div className='SearchBar-submit'>
-                    <a onClick={this.handleOnClick}>SEARCH</a>
+                    {this.renderButton()}
                 </div>
             </div>
         )
