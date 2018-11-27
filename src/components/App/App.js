@@ -5,6 +5,17 @@ import SearchResults from '../SearchResults/SearchResults'
 import Playlist from '../Playlist/Playlist'
 import Spotify from '../../util/Spotify'
 
+/*To all who dare tread these hallowed grounds:
+
+I'm sorry this is all a mess and doesn't make sense. Somehow, it all works.
+I promise I'll learn more and get better at this as I practice and learn.
+But for now, you're stuck trying to decypher what I've done here.
+
+Godspeed.
+
+*/
+
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -15,7 +26,7 @@ class App extends Component {
     this.getSearchResults = this.getSearchResults.bind(this)
     this.updateSearchTerm = this.updateSearchTerm.bind(this)
     this.savePlaylist = this.savePlaylist.bind(this)
-
+    //Because we're using the implicit login flow from Spotify, the section below checks if we've been redirected back to our app and grabs the token.
     const tokenFromURL = window.location.href.match(/access_token=([^&]*)/)
     if(tokenFromURL !== null){
       window.history.pushState('test','Title','http://localhost:3000')
@@ -52,9 +63,9 @@ class App extends Component {
   }
 
   savePlaylist(){
-    Spotify.save(this.state.playlistName,this.state.accessToken,this.state.playlist.map(track => {return track.id})).then(test => {
-      console.log(test)
-    })
+    Spotify.save(this.state.playlistName,this.state.accessToken,this.state.playlist.map(track => {return track.id}))
+    alert("Playlist succesfully saved")
+    this.setState({playlist: [], playlistName: ""})
   }
 
   updatePlaylistName(name){
@@ -74,8 +85,6 @@ class App extends Component {
       this.setState({searchResults: tracks})
     })
     
-
-    //debugger
   }
 
   render() {

@@ -1,6 +1,9 @@
 import React from 'react'
 import './Track.css'
 
+//This is the logic for every track. If it's in a playlist determines if it has a + or a - next to it to add
+//the song or remove it from the parent TrackList component.
+
 class Track extends React.Component {
     constructor(props){
         super(props)

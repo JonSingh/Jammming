@@ -1,6 +1,9 @@
 import React from 'react'
 import './SearchBar.css'
 
+//Displays the searchbar at the top.
+//The "button" (it's not a button) will display a log in prompt instead of search if there is no access token.
+
 class SearchBar extends React.Component {
     constructor(props){
         super(props)
